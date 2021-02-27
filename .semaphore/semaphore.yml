@@ -17,7 +17,7 @@ blocks:
             - createdb -U $DB_USER -h 0.0.0.0 $DB_NAME
             - psql -h 0.0.0.0 -U postgres -c "\l" | grep $DB_NAME
             - sem-service status postgres
-        - name: Build
+        - name: Build-
           commands:
             - sem-version python 3.7
             - checkout
