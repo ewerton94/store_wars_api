@@ -36,6 +36,8 @@ blocks:
           value: 'True'
         - name: DATABASE_URL
           value: 'psql://postgres:123456@127.0.0.1:5432/store_wars'
+        - name: FOO_4
+          value: BAR_4
   - name: Test
     task:
       prologue:
