@@ -35,7 +35,7 @@ blocks:
         - name: DEBUG
           value: 'True'
         - name: DATABASE_URL
-          value: 'psql://developer:developer@0.0.0.0/store_wars'
+          value: 'psql://postgres@0.0.0.0/store_wars'
         - name: FOO_4
           value: BAR_4
   - name: Test
@@ -67,7 +67,7 @@ blocks:
         - name: SECRET_KEY
       env_vars:
         - name: DATABASE_URL
-          value: 'psql://developer:developer@0.0.0.0/store_wars'
+          value: 'psql://postgres@0.0.0.0/store_wars'
         - name: DEBUG
           value: 'True'
         - name: SECRET_KEY
