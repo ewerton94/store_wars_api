@@ -15,7 +15,7 @@ blocks:
             - psql -U postgres -h localhost -c "CREATE USER $DB_USER WITH PASSWORD '$DB_PASSWORD';"
             - psql -U postgres -h localhost -c "ALTER USER $DB_USER WITH SUPERUSER;"
             - createdb -U $DB_USER -h 0.0.0.0 $DB_NAME
-            - psql -U $DB_USER -h 0.0.0.0  -c "\l" | grep $DB_NAME
+            - psql -U postgres -h 0.0.0.0  -c "\l" | grep $DB_NAME
             - sem-service status postgres
         - name: Build-
           commands:
@@ -67,7 +67,7 @@ blocks:
         - name: SECRET_KEY
       env_vars:
         - name: DATABASE_URL
-          value: 'psql://developer:developer@0.0.0.0/store_wars'
+          value: 'psql://postgres@0.0.0.0/store_wars'
         - name: DEBUG
           value: 'True'
         - name: SECRET_KEY
