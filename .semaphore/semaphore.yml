@@ -14,8 +14,8 @@ blocks:
             - sudo apt-get install -y -qq postgresql-client
             - psql -U postgres -h localhost -c "CREATE USER $DB_USER WITH PASSWORD '$DB_PASSWORD';"
             - psql -U postgres -h localhost -c "ALTER USER $DB_USER WITH SUPERUSER;"
-            - createdb -U $DB_USER -h 0.0.0.0 $DB_NAME
-            - psql -h 0.0.0.0 -U postgres -c "\l" | grep $DB_NAME
+            - createdb -U postgres -h 0.0.0.0 $DB_NAME
+            - psql -U postgres -h 0.0.0.0  -c "\l" | grep $DB_NAME
             - sem-service status postgres
         - name: Build-
           commands:
@@ -35,12 +35,19 @@ blocks:
         - name: DEBUG
           value: 'True'
         - name: DATABASE_URL
-          value: 'psql://postgres:123456@127.0.0.1:5432/store_wars'
+          value: 'psql://developer:developer@0.0.0.0/store_wars'
+        - name: FOO_4
+          value: BAR_4
   - name: Test
     task:
       prologue:
         commands:
           - sem-version python 3.7
+          - sem-service start postgres
+          - sudo apt-get install -y -qq postgresql-client
+          - psql -U postgres -h localhost -c "CREATE USER $DB_USER WITH PASSWORD '$DB_PASSWORD';"
+          - psql -U postgres -h localhost -c "ALTER USER $DB_USER WITH SUPERUSER;"
+          - createdb -U postgres -h 0.0.0.0 $DB_NAME
           - checkout
           - cache restore
           - pip install --cache-dir .pip_cache -r requirements.txt
@@ -64,8 +71,10 @@ blocks:
         - name: SECRET_KEY
       env_vars:
         - name: DATABASE_URL
-          value: 'psql://postgres:123456@127.0.0.1:5432/store_wars'
+          value: 'psql://developer:developer@0.0.0.0/store_wars'
         - name: DEBUG
           value: 'True'
         - name: SECRET_KEY
           value: qnj1lnmv9q4@jkjk__y0wrnjb2^f55os6@8u_c!e^n@bu85w3u
+        - name: FOO_4
+          value: BAR_4
