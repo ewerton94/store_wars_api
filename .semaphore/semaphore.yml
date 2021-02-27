@@ -13,7 +13,9 @@ blocks:
             - sem-service start postgres
             - sudo apt-get install -y -qq postgresql-client
             - createdb -U postgres -h 0.0.0.0 $DB_NAME
-            - psql -h 0.0.0.0 -U postgres -c "\l" | grep $DB_NAME
+            - psql -U postgres -h localhost -c "CREATE USER developer WITH PASSWORD 'developer';"
+            - psql -U postgres -h localhost -c "ALTER USER developer WITH SUPERUSER;"
+            - psql -h 0.0.0.0 -U developer -c "\l" | grep $DB_NAME
             - sem-service status postgres
         - name: Build
           commands:
