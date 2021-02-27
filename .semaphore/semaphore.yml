@@ -8,7 +8,14 @@ blocks:
   - name: Build
     task:
       jobs:
-        - name: build
+        - name: Postgres
+          commands:
+            - sem-service start postgres
+            - sudo apt-get install -y -qq postgresql-client
+            - createdb -U postgres -h 0.0.0.0 $DB_NAME
+            - psql -h 0.0.0.0 -U postgres -c "\l" | grep $DB_NAME
+            - sem-service status postgres
+        - name: Build
           commands:
             - sem-version python 3.7
             - checkout
