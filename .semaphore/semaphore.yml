@@ -27,6 +27,8 @@ blocks:
             - cache store
       secrets:
         - name: DATABASE
+        - name: DEBUG
+        - name: SECRET_KEY
   - name: Test
     task:
       prologue:
@@ -51,3 +53,5 @@ blocks:
             - flake8 store_wars/ --max-line-length=127
       secrets:
         - name: DATABASE
+        - name: DEBUG
+        - name: SECRET_KEY
