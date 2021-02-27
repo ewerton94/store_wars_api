@@ -50,7 +50,7 @@ CACHES = {
     'redis': env.cache('REDIS_URL')
 }
 '''
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['ewerton94.pythonanywhere.com', 'localhost']
 
 # Application definition
 
