@@ -1,3 +1,6 @@
 django==2.2
 django-environ
 psycopg2
+rest_framework
+rest_framework_swagger
+corsheaders
