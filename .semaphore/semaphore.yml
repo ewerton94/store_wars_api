@@ -1,0 +1,71 @@
+version: v1.0
+name: Initial Pipeline
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
+blocks:
+  - name: Build
+    task:
+      jobs:
+        - name: Postgres
+          commands:
+            - sem-service start postgres
+            - sudo apt-get install -y -qq postgresql-client
+            - psql -U postgres -h localhost -c "CREATE USER $DB_USER WITH PASSWORD '$DB_PASSWORD';"
+            - psql -U postgres -h localhost -c "ALTER USER $DB_USER WITH SUPERUSER;"
+            - createdb -U $DB_USER -h 0.0.0.0 $DB_NAME
+            - psql -h 0.0.0.0 -U postgres -c "\l" | grep $DB_NAME
+            - sem-service status postgres
+        - name: Build-
+          commands:
+            - sem-version python 3.7
+            - checkout
+            - mkdir .pip_cache
+            - cache restore
+            - pip install --cache-dir .pip_cache -r requirements.txt
+            - cache store
+      secrets:
+        - name: DATABASE
+        - name: DEBUG
+        - name: SECRET_KEY
+      env_vars:
+        - name: SECRET_KEY
+          value: qnj1lnmv9q4@jkjk__y0wrnjb2^f55os6@8u_c!e^n@bu85w3u
+        - name: DEBUG
+          value: 'True'
+        - name: DATABASE_URL
+          value: 'psql://postgres:123456@127.0.0.1:5432/store_wars'
+  - name: Test
+    task:
+      prologue:
+        commands:
+          - sem-version python 3.7
+          - checkout
+          - cache restore
+          - pip install --cache-dir .pip_cache -r requirements.txt
+      jobs:
+        - name: Unit Tests
+          commands:
+            - cd store_wars
+            - python manage.py migrate
+            - python manage.py test
+        - name: Checklist
+          commands:
+            - cd store_wars
+            - python manage.py check --deploy
+        - name: Style Check
+          commands:
+            - pip install flake8
+            - flake8 store_wars/ --max-line-length=127
+      secrets:
+        - name: DATABASE
+        - name: DEBUG
+        - name: SECRET_KEY
+      env_vars:
+        - name: DATABASE_URL
+          value: 'psql://postgres:123456@127.0.0.1:5432/store_wars'
+        - name: DEBUG
+          value: 'True'
+        - name: SECRET_KEY
+          value: qnj1lnmv9q4@jkjk__y0wrnjb2^f55os6@8u_c!e^n@bu85w3u
