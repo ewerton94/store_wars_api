@@ -29,6 +29,13 @@ blocks:
         - name: DATABASE
         - name: DEBUG
         - name: SECRET_KEY
+      env_vars:
+        - name: SECRET_KEY
+          value: qnj1lnmv9q4@jkjk__y0wrnjb2^f55os6@8u_c!e^n@bu85w3u
+        - name: DEBUG
+          value: 'True'
+        - name: DATABASE_URL
+          value: 'psql://postgres:123456@127.0.0.1:5432/store_wars'
   - name: Test
     task:
       prologue:
@@ -55,3 +62,10 @@ blocks:
         - name: DATABASE
         - name: DEBUG
         - name: SECRET_KEY
+      env_vars:
+        - name: DATABASE_URL
+          value: 'psql://postgres:123456@127.0.0.1:5432/store_wars'
+        - name: DEBUG
+          value: 'True'
+        - name: SECRET_KEY
+          value: qnj1lnmv9q4@jkjk__y0wrnjb2^f55os6@8u_c!e^n@bu85w3u
