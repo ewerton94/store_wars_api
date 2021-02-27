@@ -15,7 +15,7 @@ blocks:
             - psql -U postgres -h localhost -c "CREATE USER $DB_USER WITH PASSWORD '$DB_PASSWORD';"
             - psql -U postgres -h localhost -c "ALTER USER $DB_USER WITH SUPERUSER;"
             - createdb -U $DB_USER -h 0.0.0.0 $DB_NAME
-            - psql -h 0.0.0.0 -U postgres -c "\l" | grep $DB_NAME
+            - psql -U $DB_USER -h 0.0.0.0  -c "\l" | grep $DB_NAME
             - sem-service status postgres
         - name: Build-
           commands:
