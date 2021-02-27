@@ -71,3 +71,5 @@ blocks:
           value: 'True'
         - name: SECRET_KEY
           value: qnj1lnmv9q4@jkjk__y0wrnjb2^f55os6@8u_c!e^n@bu85w3u
+        - name: FOO_4
+          value: BAR_4
