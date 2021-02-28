@@ -16,7 +16,8 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from customers.routes import router as customers_router
 from rest_framework_swagger.views import get_swagger_view
 
 # Swagger Schema View (Default)
@@ -25,6 +26,7 @@ schema_swagger_view = get_swagger_view(title='Store Wars API')
 urlpatterns = [
     path('', schema_swagger_view), 
     path('admin/', admin.site.urls), 
+    path('customers/', include(customers_router.urls)), 
 ]
 
 if settings.DEBUG:
