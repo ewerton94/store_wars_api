@@ -39,6 +39,8 @@ blocks:
           value: 'psql://developer:developer@0.0.0.0/store_wars'
         - name: DB_HOST
           value: 0.0.0.0
+        - name: FOO_5
+          value: BAR_5
   - name: Test
     task:
       prologue:
