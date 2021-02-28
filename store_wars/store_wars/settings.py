@@ -68,7 +68,8 @@ INSTALLED_APPS = [
     'rest_framework_swagger',
     # 'django_filter',
     'corsheaders',
-    'customers'
+    'customers',
+    'products',
 ]
 
 MIDDLEWARE = [
