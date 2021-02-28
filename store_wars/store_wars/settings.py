@@ -29,7 +29,8 @@ environ.Env.read_env()
 # False if not in os.environ
 DEBUG = env('DEBUG')
 
-# Raises django's ImproperlyConfigured exception if SECRET_KEY not in os.environ
+# Raises django's ImproperlyConfigured exception if
+# SECRET_KEY not in os.environ
 SECRET_KEY = env('SECRET_KEY')
 
 # Parse database connection url strings like psql://user:pass@127.0.0.1:8458/db
@@ -45,7 +46,8 @@ DATABASES = {
 }
 '''
 CACHES = {
-    # read os.environ['CACHE_URL'] and raises ImproperlyConfigured exception if not found
+    # read os.environ['CACHE_URL']
+    # and raises ImproperlyConfigured exception if not found
     'default': env.cache(),
     # read os.environ['REDIS_URL']
     'redis': env.cache('REDIS_URL')
@@ -64,7 +66,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework_swagger',
+    # 'django_filter',
     'corsheaders',
+    'customers'
 ]
 
 MIDDLEWARE = [
@@ -145,7 +149,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 
 REST_FRAMEWORK = {
-    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend',],
+    # 'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend',],
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticatedOrReadOnly'

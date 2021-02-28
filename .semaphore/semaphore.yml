@@ -37,8 +37,10 @@ blocks:
           value: 'True'
         - name: DATABASE_URL
           value: 'psql://developer:developer@0.0.0.0/store_wars'
-        - name: FOO_4
-          value: BAR_4
+        - name: DB_HOST
+          value: 0.0.0.0
+        - name: FOO_5
+          value: BAR_5
   - name: Test
     task:
       prologue:
@@ -67,7 +69,6 @@ blocks:
             - pip install flake8
             - flake8 store_wars/ --max-line-length=127
       secrets:
-        - name: DATABASE
         - name: DEBUG
         - name: SECRET_KEY
       env_vars:
@@ -77,5 +78,13 @@ blocks:
           value: 'True'
         - name: SECRET_KEY
           value: qnj1lnmv9q4@jkjk__y0wrnjb2^f55os6@8u_c!e^n@bu85w3u
-        - name: FOO_4
-          value: BAR_4
+        - name: DB_HOST
+          value: 0.0.0.0
+        - name: DB_ENGINE
+          value: django.db.backends.sqlite3
+        - name: DB_USER
+          value: ewerton94
+        - name: DB_NAME
+          value: db.sqlite3
+        - name: DB_PASSWORD
+          value: 'toreWARS#2020'
