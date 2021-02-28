@@ -5,3 +5,4 @@ djangorestframework
 django-rest-swagger
 django-cors-headers
 django-filter
+Pillow
