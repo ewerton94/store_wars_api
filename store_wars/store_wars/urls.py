@@ -24,9 +24,9 @@ from rest_framework_swagger.views import get_swagger_view
 schema_swagger_view = get_swagger_view(title='Store Wars API')
 
 urlpatterns = [
-    path('', schema_swagger_view), 
-    path('admin/', admin.site.urls), 
-    path('customers/', include(customers_router.urls)), 
+    path('', schema_swagger_view),
+    path('admin/', admin.site.urls),
+    path('customers/', include(customers_router.urls)),
 ]
 
 if settings.DEBUG:
