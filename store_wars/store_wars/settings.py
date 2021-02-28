@@ -141,8 +141,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 MEDIA_URL = '/media/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+STATIC_ROOT = os.path.join(os.path.join(BASE_DIR, 'store_wars'), 'static')
+MEDIA_ROOT = os.path.join(os.path.join(BASE_DIR, 'store_wars'), 'media')
 
 CORS_ORIGIN_ALLOW_ALL = True
 
