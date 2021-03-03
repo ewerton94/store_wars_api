@@ -9,7 +9,8 @@ from customers.models import Customer
 from products.models import Product
 
 from .models import Order, Item
-from .test_base import get_order_dict, ORDERS
+from .test_base import get_order_dict, ORDERS, ORDER_PROFITABILITY_SUCCESS, ORDER_PROFITABILITY_ERROR
+from .test_base import ORDER_MULTIPLE_ERROR
 
 
 def to_dict(input_ordered_dict):
@@ -100,3 +101,24 @@ class OrderTest(TestCase):
         client = APIClient()
         response = client.post(url, ORDERS[0], format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+    def test_profitabilary_sucess(self):
+        url = reverse('order-list')
+        client = APIClient()
+        response = client.post(url, ORDER_PROFITABILITY_SUCCESS, format='json')
+        items = response.data.get('items')
+        self.assertEqual(items[0]['profitability'], 'excellent')
+        self.assertEqual(items[1]['profitability'], 'good')
+        self.assertEqual(items[2]['profitability'], 'good')
+
+    def test_profitability_error(self):
+        url = reverse('order-list')
+        client = APIClient()
+        response = client.post(url, ORDER_PROFITABILITY_ERROR, format='json')
+        self.assertEqual(response.status_code, status.HTTP_406_NOT_ACCEPTABLE)
+
+    def test_multiple_error(self):
+        url = reverse('order-list')
+        client = APIClient()
+        response = client.post(url, ORDER_MULTIPLE_ERROR, format='json')
+        self.assertEqual(response.status_code, status.HTTP_406_NOT_ACCEPTABLE)
