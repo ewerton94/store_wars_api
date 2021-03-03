@@ -33,34 +33,31 @@ class OrderSerializer(serializers.ModelSerializer):
             queryset=Customer.objects.all())
         return super(OrderSerializer, self).to_internal_value(data)
 
-    def create_items(self, order, items):
+    def create_items_from_dict(self, order, items):
         items = []
         for item in items:
             item['order_id'] = order.id
             items.append(Item(**item))
         return items
 
+    def create_items(self, order, items):
+        items = self.create_items_from_dict(order, items)
+        Item.objects.bulk_create(items)
+
     def create(self, validated_data):
         order = Order.objects.create(customer=validated_data.get('customer'))
         items = validated_data.pop('items')
-        items = self.create_items(order, items)
-        Item.objects.bulk_create(items)
-        order = Order.objects.get(id=order.id)
-        print(order)
+        self.create_items(order, items)
+        order.refresh_from_db()
         return order
 
-    def update(self, instance, validated_data):
+    def update(self, order, validated_data):
         items = validated_data.pop('items')
         for field in validated_data:
             if Order._meta.get_field(field):
-                setattr(instance, field, validated_data[field])
-        instance.save()
-        print(str(instance.id))
-        Item.objects.filter(order=instance).delete()
-        items = self.create_items(instance, items)
-        Item.objects.bulk_create(items)
-        order = Order.objects.get(id=instance.id)
-        print(instance.id)
-        print(order)
-        print('Updated')
+                setattr(order, field, validated_data[field])
+        order.save()
+        Item.objects.filter(order=order).delete()
+        self.create_items(order, items)
+        order.refresh_from_db()
         return order
