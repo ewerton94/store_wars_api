@@ -16,7 +16,7 @@ ORDERS = [
             {
                 'product': 2,
                 'price': 60000,
-                'quantity': 3
+                'quantity': 4
             }
 
         ]
@@ -34,37 +34,49 @@ ORDERS = [
     }
 ]
 ORDER_PROFITABILITY_SUCCESS = {
-        'customer': 1,
-        'items': [
-            {
-                'product': 1,
-                'price': 550000.01,  # Test excellent
-                'quantity': 5
-            },
-            {
-                'product': 1,
-                'price': 550000,  # Test good
-                'quantity': 3
-            },
-            {
-                'product': 1,
-                'price': 495000,  # Test good
-                'quantity': 3
-            }
+    'customer': 1,
+    'items': [
+        {
+            'product': 1,
+            'price': 550000.01,  # Test excellent
+            'quantity': 5
+        },
+        {
+            'product': 1,
+            'price': 550000,  # Test good
+            'quantity': 3
+        },
+        {
+            'product': 1,
+            'price': 495000,  # Test good
+            'quantity': 3
+        }
 
 
-        ]
-    }
+    ]
+}
+
 ORDER_PROFITABILITY_ERROR = {
-        'customer': 1,
-        'items': [
-            {
-                'product': 1,
-                'price': 494999.99,  # Test bad
-                'quantity': 3
-            }
-        ]
-    }
+    'customer': 1,
+    'items': [
+        {
+            'product': 1,
+            'price': 494999.99,  # Test bad
+            'quantity': 3
+        }
+    ]
+}
+
+ORDER_MULTIPLE_ERROR = {
+    'customer': 1,
+    'items': [
+        {
+            'product': 2,
+            'price': 60000,
+            'quantity': 5
+        }
+    ]
+}
 
 
 def get_order_dict(client, order, response=None):

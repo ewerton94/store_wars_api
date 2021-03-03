@@ -12,6 +12,15 @@ PROFITABILITY = (
 )
 
 
+def get_multiple_situation(product=None, item=None, product_id=None):
+    if product_id is not None:
+        product = Product.objects.get(id=product_id).multiple
+    if product is not None:
+        if item % product == 0:
+            return True
+    return False
+
+
 class Order(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     customer = models.ForeignKey(Customer, related_name='orders', on_delete=models.CASCADE)
@@ -30,6 +39,10 @@ class Item(models.Model):
 
     def __str__(self):
         return f'Pedido de {self.order.customer.name} - {self.quantity} {self.product.name} a {self.price}'
+
+    @property
+    def multiple_satisfies(self):
+        return get_multiple_situation(self.product.multiple, self.quantity)
 
     def calculate_profitability(self):
         product_price = float(self.product.price)
