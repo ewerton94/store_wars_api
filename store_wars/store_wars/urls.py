@@ -13,13 +13,16 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path, include
-from customers.routes import router as customers_router
-from products.routes import router as products_router
+from django.urls import include, path
 from rest_framework_swagger.views import get_swagger_view
+
+from customers.routes import router as customers_router
+from orders.routes import router as orders_router
+from products.routes import router as products_router
 
 # Swagger Schema View (Default)
 schema_swagger_view = get_swagger_view(title='Store Wars API')
@@ -28,6 +31,7 @@ urlpatterns = [
     path('', schema_swagger_view),
     path('admin/', admin.site.urls),
     path('customers/', include(customers_router.urls)),
+    path('orders/', include(orders_router.urls)),
     path('products/', include(products_router.urls)),
 ]
 

@@ -67,7 +67,7 @@ blocks:
         - name: Style Check
           commands:
             - pip install flake8
-            - flake8 store_wars/ --max-line-length=127
+            - flake8 store_wars/
       secrets:
         - name: DEBUG
         - name: SECRET_KEY
