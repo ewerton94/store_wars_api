@@ -1,3 +1,5 @@
+import json
+
 from customers.serializers import CustomerSerializer
 from customers.models import Customer
 from products.serializers import ProductSerializer
@@ -7,12 +9,17 @@ from rest_framework import serializers
 from .models import Item, Order
 
 
+def to_dict(input_ordered_dict):
+    return json.loads(json.dumps(input_ordered_dict))
+
+
 class ItemSerializer(serializers.ModelSerializer):
     product = ProductSerializer(many=False)
+    profitability = serializers.CharField(required=False)
 
     class Meta:
         model = Item
-        fields = ['id', 'product', 'quantity', 'price']
+        fields = ['id', 'product', 'price', 'quantity', 'profitability']
 
     def to_internal_value(self, data):
         self.fields['product'] = serializers.PrimaryKeyRelatedField(
@@ -34,11 +41,11 @@ class OrderSerializer(serializers.ModelSerializer):
         return super(OrderSerializer, self).to_internal_value(data)
 
     def create_items_from_dict(self, order, items):
-        items = []
+        items_list = []
         for item in items:
             item['order_id'] = order.id
-            items.append(Item(**item))
-        return items
+            Item.objects.create(**item)
+        return items_list
 
     def create_items(self, order, items):
         items = self.create_items_from_dict(order, items)
