@@ -13,10 +13,11 @@ PROFITABILITY = (
 
 
 def get_multiple_situation(product=None, item=None, product_id=None):
+    print(product, item, product_id)
     if product_id is not None:
         product = Product.objects.get(id=product_id).multiple
     if product is not None:
-        if item % product == 0:
+        if int(item) % int(product) == 0:
             return True
     return False
 
