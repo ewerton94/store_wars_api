@@ -10,7 +10,7 @@ class OrderViewSet(viewsets.ModelViewSet):
     serializer_class = OrderSerializer
     permission_classes = (permissions.AllowAny,)
 
-    http_method_names = ['get', 'post', 'put']
+    http_method_names = ['get', 'post', 'put', 'delete']
 
     def create(self, request, *args, **kwargs):
         r = super().create(request, *args, **kwargs)
