@@ -8,11 +8,7 @@ O Frontend encontra-se no repositório [Star Wars](https://github.com/ewerton94/
 ### Testando Localmente
 
 
-Lembre-se de verificar se o terminal está na pasta `store_wars` para que seja possível realizar as operações seguintes.
 
-```system
-$ cd store_wars
-```
 
 #### para rodar pela primeira vez:
 
@@ -22,9 +18,13 @@ $ cd store_wars
 ```system
 $ pip install -r requirements.txt
 ```
+3. Altere a pasta do terminal para `store_wars` para que seja possível realizar as operações seguintes.
 
+```system
+$ cd store_wars
+```
 
-5. Crie um arquivo `conf/secret.py` com as seguintes informações:
+4. Crie um arquivo `store_wars/.env` com as seguintes informações:
 
 ```
 SECRET_KEY=SUACHAVE
@@ -38,7 +38,7 @@ DB_NAME='db.sqlite3'
 #DB_PORT=3306
 ```
 
-6. Atualize o banco de dados:
+5. Atualize o banco de dados:
 
 ```system
 
@@ -46,14 +46,14 @@ $ python manage.py migrate
 
 ```
 
-7. Crie um usuário admin:
+6. Crie um usuário admin (Caso seja necessário criar clientes ou produtos):
 
 ```system
 
 $ python manage.py createsuperuser
 
 ```
-8. Teste a aplicação:
+7. Teste a aplicação:
 
 ```system
 
